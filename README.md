@@ -1,21 +1,14 @@
 # TrashFlight
 
-유니티로 개발한 드래곤플라이트 짝퉁게임 TrashFlight이다.<br>
-캐릭터의 이동은 마우스를 통해 진행하며 캐릭터는 화면밖을 벗어날 수 없다.<br>
-<b>[플레이화면]</b><br>
-<img src="https://github.com/merona42/TrashFlight/assets/140749669/b7d85f8b-4815-4736-b7ab-47c0be27d8c2"  width="300" height="400"/><br>
-적을 죽이면 코인(점수)가 나오고 일정갯수이상을 먹으면 자동으로 무기가 업그레이드 된다.<br>
-<img src="https://github.com/merona42/TrashFlight/assets/140749669/f57efae7-4509-4b84-a2a5-196bc94c625e"  width="300" height="400"/>
-<img src="https://github.com/merona42/TrashFlight/assets/140749669/e4757b4e-8924-49fd-b277-dfb31d89094d"  width="300" height="400"/><br>
-게임을 진행하다보면 끝무렵에 보스가 나온다.<br>
-<img src="https://github.com/merona42/TrashFlight/assets/140749669/fb224ca1-6fd5-40c3-97e7-d9dc2743f03c"  width="300" height="400"/><br>
-적에게 닿거나 보스를 죽이면 게임오버화면이 뜬다.<br>
-이때 캐릭터가 살아있다면 총알발사는 멈춘다.<br>
-<img src="https://github.com/merona42/TrashFlight/assets/140749669/e2c38ce9-d2eb-4963-90f2-e5de6a6c25c6"  width="300" height="400"/>
-<img src="https://github.com/merona42/TrashFlight/assets/140749669/ee785c91-f41f-435c-8235-155770f1d7de"  width="300" height="400"/><br>
-<br>
-<br>
-<hr/>
-적은 시스템내 level변수가 증가할때마다 점점 강한 적들로 나오며 나오는 개체들은 특정확률을 통해 등장한다.<br>
-<b>[추가하고싶은 것]</b><br>
-Db를 연동하여 게임이끝나면 점수가 기록되는 시스템과 적을 죽이면 일정확률로 아이템이 등장하여 아이템사용이 가능하게끔 하고싶다.
+배경 움직임 - Script를 통해 아래로 이동시켜가며 특정위치가 되면 다시 위로 올라가게 하여 캐릭터가 위로 진행하는 느낌을 구현 
+캐릭터 움직임 - 마우스의 position에 위치를 바꾸고 clamp함수를 통해 최소위치와 최대위치를 구현
+탄환 충돌 구현 - rigidBody2D와 Script를 통해 Tag가 Enemy면 Weapon의 Dmg만큼 Hp가 깎이도록 구현
+적 출현 - EnemySpawner객체를 만들고 코루틴을 통해 특정시간마다 enemy객체를 지정된 위치에서 생성하도록 구현
+코인 - 각 Enemy가 hp가 0 이되면 Destroy될때 coin객체를 Instantiate 함수를 통해 구현, RigidBody2D 컴포넌트를 추가해 중력이 적용되게 하고,
+rigidBody의 AddForce함수를 이용하여 포물선을 그리며 떨어지도록 함.
+무기 업그레이드 - GameManager객체를 통해 코인을 얻을때 특정 코인 이상이 되면 player 객체에 생성되는 weapon객체를 변경시켜 업그레이드를 구현함.
+플레이어가 적과 닿거나 Boss처리시 게임오버 panel이 setActive(true)가 되게끔함.
+
+[게임설명]
+플레이어를 마우스로 움직이며 하늘에서 주기적으로 내려오는 적들을 처치해가며 코인을 획득한다.
+일정 코인 이상을 먹으면 자동으로 무기가 업그레이드 되고, 최종적으로 보스를 처치 한 후 게임이 종료되었을 때, 얻었던 코인의 갯수가 최종 점수가 된다.
